@@ -2,23 +2,23 @@ YATRIGANN - Travel Service Portal
 YATRIGANN is a full-stack web application designed for browsing and managing travel services such as flights and hotels. It provides a user-friendly interface for travelers and a comprehensive management dashboard for administrators to perform CRUD operations.
 
 Table of Contents:
--Introduction
--Features
--Tech Stack
--Installation
--Configuration
--Usage
--Database Schema
+Introduction,
+Features,
+Tech Stack,
+Installation,
+Configuration,
+Usage,
+Database Schema.
 
 Introduction:
 The goal of this project is to simplify travel planning by centralizing flight and hotel information. Built using the Django framework, it ensures a secure and scalable environment for both users and administrators.
 
 Features:
-User Authentication: Secure sign-up and login system for customers.
-Admin Dashboard: A restricted portal for superusers to add, edit, or delete services.
-Service Categorization: Clear separation between different travel categories.
-Responsive UI: Mobile-friendly design implemented with Bootstrap 5.
-Database Persistence: Real-time data storage and retrieval using MySQL.
+User Authentication,
+Admin Dashboard,
+Service Categorization,
+Responsive UI,
+Database Persistence.
 
 Tech Stack:
 Backend: Python 3.13, Django
@@ -27,7 +27,7 @@ Database: MySQL
 Environment Management: Virtualenv
 
 Installation:
-Clone the repository: git clone https://github.com/your-username/YATRIGANN.git
+Clone the repository: git clone https://github.com/Vishal0903aggarwal/YATRIGANN.git
 Create and activate a virtual environment: python -m venv .venv .venv\Scripts\activate
 Install the dependencies: pip install -r requirements.txt
 
