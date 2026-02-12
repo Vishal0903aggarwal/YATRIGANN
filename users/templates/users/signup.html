@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-center" 
+     style="min-height: calc(100vh - 72px); background-color: #6f42c1; padding-top: 20px; padding-bottom: 20px;">
+    
+    <div class="card shadow-lg border-0" style="width: 100%; max-width: 400px; border-radius: 20px;">
+        <div class="card-body p-5">
+            <h2 class="text-center fw-bold mb-4" style="color: #4e73df;">Sign Up</h2>
+            
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <small class="text-danger d-block mt-1">{{ field.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-3 shadow" 
+                        style="border-radius: 10px; background: #5d5fef; border: none;">
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <span class="small text-muted">
+                    Already a member? <a href="{% url 'login' %}" class="fw-bold text-decoration-none">Login</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

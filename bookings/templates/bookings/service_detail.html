@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.title }} | YATRIGANN{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-7">
+            <img src="{{ service.destination.image.url }}" class="img-fluid rounded shadow" alt="{{ service.title }}">
+        </div>
+        
+        <div class="col-md-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active">{{ service.category.name }}</li>
+                </ol>
+            </nav>
+            <h1 class="fw-bold">{{ service.title }}</h1>
+
+            <h5 class="card-title mt-2">
+                <a href="{% url 'service_detail' service.pk %}" class="text-decoration-none text-dark">
+                    {{ service.title }}
+                </a>
+            </h5>
+
+            <p class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ service.destination.city }}, {{ service.destination.state }}</p>
+            <hr>
+            <h3 class="text-primary fw-bold">₹{{ service.price }}</h3>
+            <p class="badge bg-success">Rating: {{ service.rating }} / 5.0</p>
+            
+            <div class="mt-4 p-3 border rounded bg-light">
+                <h5>Description</h5>
+                <p>{{ service.destination.description }}</p>
+            </div>
+
+            <div class="mt-4 p-4 border rounded bg-white shadow-sm">
+                <h5>Book this trip</h5>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label>Select Travel Date:</label>
+                        {{ form.travel_date }}
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                        <button type="submit" class="btn btn-success btn-lg w-100">Confirm & Pay</button>
+                    {% else %}
+                        <a href="/admin/login/" class="btn btn-secondary btn-lg w-100">Login to Book</a>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- <button class="btn btn-warning btn-lg w-100 mt-4 shadow">Confirm Booking</button> -->
+        </div>
+    </div>
+</div>
+{% endblock %}

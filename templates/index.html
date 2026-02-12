@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | YATRIGANN{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 rounded-3 text-center border-bottom" 
+     style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+            url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=80'); 
+            background-size: cover; background-position: center; color: white; min-height: 400px; margin: 5px;">    <div class="container py-5">
+        <h1 class="display-4 fw-bold">Explore the World with YATRIGANN</h1>
+        <p class="fs-4">Find the best deals on flights and hotels.</p>
+        
+        <form action="{% url 'search_results' %}" method="GET" class="mt-4">
+            <div class="input-group mb-3 w-75 mx-auto shadow">
+                <input type="text" name="q" class="form-control form-control-lg" placeholder="Enter city (e.g. Manali)">
+                <button class="btn btn-warning btn-lg" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row text-center">
+        {% for cat in categories %}
+        <div class="col-md-3 mb-3">
+            <div class="p-4 border rounded shadow-sm bg-white h-100">
+                <h5>{{ cat.name }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="mb-4 fw-bold">Trending Destinations</h2>
+    <div class="row">
+        {% for place in trending_places %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0">
+                {% if place.image %}
+                <img src="{{ place.image.url }}" class="card-img-top" alt="{{ place.city }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ place.city }}</h5>
+                    <p class="card-text text-muted small">{{ place.state }}</p>
+                    <a href="{% url 'search_results' %}?q={{ place.city }}" class="btn btn-outline-primary w-100">Explore</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

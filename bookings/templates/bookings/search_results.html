@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results | YATRIGANN{% endblock %}
+
+{% block content %}
+<div class="py-5 text-white mb-4" style="background: linear-gradient(45deg, #003580, #0056b3); border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    <div class="container text-center">
+        {% if request.GET.category == '1' %}
+            <h1 class="display-5 fw-bold"><i class="fas fa-plane-departure me-2"></i> Flight Results</h1>
+            <p class="lead">Showing best fares for your next adventure.</p>
+        {% elif request.GET.category == '2' %}
+            <h1 class="display-5 fw-bold"><i class="fas fa-hotel me-2"></i> Available Hotels</h1>
+            <p class="lead">Premium stays at unbeatable prices.</p>
+        {% else %}
+            <h1 class="display-5 fw-bold"><i class="fas fa-search me-2"></i> Search Results</h1>
+            <p class="lead">Found results for "{{ query|default:'Your search' }}"</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            {% for service in results %}
+            <div class="card mb-4 border-0 shadow-sm service-card h-100 overflow-hidden">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <div class="position-relative h-100">
+                            <img src="{{ service.destination.image.url }}" class="img-fluid h-100" style="object-fit: cover; min-height: 200px;" alt="{{ service.title }}">
+                            <div class="position-absolute top-0 start-0 m-2">
+                                <span class="badge bg-warning text-dark shadow-sm px-3 py-2">
+                                    <i class="fas fa-star"></i> 4.5 Rated
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body p-4 d-flex flex-column h-100">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle mb-2">
+                                        {{ service.category.name }}
+                                    </span>
+                                    <h4 class="card-title fw-bold text-dark">{{ service.title }}</h4>
+                                    <p class="text-muted mb-1">
+                                        <i class="fas fa-map-marker-alt text-danger"></i> {{ service.destination.city }}, {{ service.destination.state }}
+                                    </p>
+                                </div>
+                                <div class="text-end">
+                                    <p class="text-muted small mb-0 text-decoration-line-through">₹{{ service.price|add:500 }}</p>
+                                    <h3 class="fw-bold text-primary mb-0">₹{{ service.price }}</h3>
+                                    <small class="text-success">Free Cancellation</small>
+                                </div>
+                            </div>
+                            
+                            <p class="card-text text-secondary mt-3 flex-grow-1">
+                                {{ service.description|truncatewords:25 }}
+                            </p>
+                            
+                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                <span class="text-muted small"><i class="fas fa-bolt text-warning"></i> Instant Confirmation</span>
+                                <a href="{% url 'service_detail' service.id %}" class="btn btn-primary px-5 rounded-pill shadow-sm">
+                                    Book Now <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-plane-slash fa-4xl text-light-emphasis" style="font-size: 5rem;"></i>
+                </div>
+                <h2 class="fw-bold">No results found</h2>
+                <p class="text-muted">We couldn't find any matches for your search. Try a different city or category.</p>
+                <a href="{% url 'home' %}" class="btn btn-outline-primary rounded-pill mt-3 px-4">Back to Home</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .service-card {
+        transition: all 0.3s ease;
+        border: 1px solid transparent !important;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+        border-color: #003580 !important;
+    }
+    .bg-primary-subtle { background-color: #e7f1ff; }
+</style>
+{% endblock %}

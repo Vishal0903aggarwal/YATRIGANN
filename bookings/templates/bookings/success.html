@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="card p-5 shadow">
+        <h1 class="text-success"><i class="fas fa-check-circle"></i> Booking Confirmed!</h1>
+        <p class="lead">Thank you, {{ booking.user.username }}! Your trip to {{ booking.service.destination.city }} is booked.</p>
+        <div class="alert alert-info">
+            <strong>Booking ID:</strong> #{{ booking.id }} <br>
+            <strong>Date:</strong> {{ booking.travel_date }}
+        </div>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
